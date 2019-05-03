@@ -1,6 +1,10 @@
 resolver: lts-13.19
 packages:
 - .
-extra-deps: []
+extra-deps:
+- config-ini-0.2.4.0
+- data-clist-0.1.2.1
+- text-zipper-0.10.1
+- QuickCheck-2.11.3
 flags: {}
 extra-package-dbs: []
