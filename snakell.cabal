@@ -1,0 +1,26 @@
+name:                snakell
+version:             0.0.0.1
+synopsis:            A snake game TUI version writing on Haskell
+description:         Really the first purpose of this project has been serves me
+                     as an introduction to Haskell, since I have never worked
+                     with this language before, and Brick. But finally I like
+                     the game performance and have the intention to god on
+                     developing it to achieve a cool snake game terminal
+                     version.
+homepage:            https://github.com/glezseoane/snakell#readme
+license:             MIT
+license-file:        LICENSE
+author:              Borja González Seoane
+maintainer:          dev@glezseoane.com
+copyright:           2019 Borja González Seoane
+category:            Games
+build-type:          Simple
+cabal-version:       >=1.10
+extra-source-files:  README.md
+
+executable snakell
+  hs-source-dirs:      src
+  main-is:             Main.hs
+  other-modules:       Engine
+                     , TUI
+  
