@@ -82,7 +82,7 @@ import Engine
 data Tic = Tic
 
 -- | World cells
-data Cell = Snake | Apple | Empty
+data Cell = Snake | Apple | Barrier | Empty
 
 
 -- App definition
@@ -167,14 +167,16 @@ drawGrid g = withBorderStyle BS.unicodeBold
     cellsInRow y = [drawCoord (V2 x y) | x <- [0..width-1]]
     drawCoord    = drawCell . cellAt
     cellAt c
-      | c `elem` g ^. snake = Snake
-      | c == g ^. food      = Apple
-      | otherwise           = Empty
+      | c `elem` g ^. snake     = Snake
+      | c == g ^. apple          = Apple
+      | c `elem` g ^. barriers  = Barrier
+      | otherwise               = Empty
 
 drawCell :: Cell -> Widget ()
-drawCell Snake = withAttr snakeAttr cw
-drawCell Apple  = withAttr foodAttr cw
-drawCell Empty = withAttr emptyAttr cw
+drawCell Snake    = withAttr snakeAttr cw
+drawCell Apple    = withAttr appleAttr cw
+drawCell Barrier  = withAttr barrierAttr cw
+drawCell Empty    = withAttr emptyAttr cw
 
 cw :: Widget ()
 cw = str "  "
@@ -185,7 +187,8 @@ cw = str "  "
 theMap :: AttrMap
 theMap = attrMap V.defAttr
   [ (snakeAttr, V.green `on` V.green)
-  , (foodAttr, V.red `on` V.red)
+  , (appleAttr, V.red `on` V.red)
+  , (barrierAttr, V.white `on` V.white)
   , (scoreAttr, fg V.yellow `V.withStyle` V.bold)
   , (playingAttr, fg V.green `V.withStyle` V.bold)
   , (gameOverAttr, fg V.red `V.withStyle` V.bold)
@@ -198,7 +201,8 @@ playingAttr, gameOverAttr :: AttrName
 playingAttr = "playing"
 gameOverAttr = "gameOver"
 
-snakeAttr, foodAttr, emptyAttr :: AttrName
+snakeAttr, appleAttr, emptyAttr :: AttrName
 snakeAttr = "snakeAttr"
-foodAttr = "foodAttr"
+appleAttr = "appleAttr"
+barrierAttr = "barrierAttr"
 emptyAttr = "emptyAttr"
