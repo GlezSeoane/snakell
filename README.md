@@ -1,4 +1,4 @@
-# snakell (yet experimental)
+# [yet experimental] snakell
 
 A snake game TUI version writing on Haskell.
 
